@@ -1,3 +1,6 @@
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+
 import { MaxWithWrapper } from './components/MaxWithWrapper';
 
 export default function Home() {
@@ -14,10 +17,14 @@ export default function Home() {
         seconds.
       </h1>
 
-      <p className="mt-5 max-w-prose text-zinc-700 sm:text-lg">
+      <p className="mt-5 max-w-prose text-zinc-600 sm:text-lg">
         Quill allows you to have conversations with any PDF document. Simply
         upload your file and start asking questions right away
       </p>
+
+      <Link href="/dashboard" target="_blank">
+        Get started <ArrowRight className="ml-2 h-5 w-5" />
+      </Link>
     </MaxWithWrapper>
   );
 }

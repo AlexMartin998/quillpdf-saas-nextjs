@@ -1,14 +1,12 @@
-import type { Config } from 'tailwindcss';
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   darkMode: ['class'],
-
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
-
   theme: {
     container: {
       center: true,
@@ -18,19 +16,14 @@ const config: Config = {
       },
     },
 
+    // link tailwindcss with global.css variables <- shadcn
     extend: {
-      maxWidth: {
-        '8xl': '1408px',
-      },
-
-      // link tailwindcss with global css variables comming from shadcn
       colors: {
-        border: 'hls(var(--border))', // from globals css <- shadcn
-        input: 'hls(var(--input))',
-        ring: 'hls(var(--ring))',
-        background: 'hls(var(--background))',
-        foreground: 'hls(var(--foreground))',
-
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
@@ -60,31 +53,26 @@ const config: Config = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
-
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
+          from: { height: 0 },
           to: { height: 'var(--radix-accordion-content-height)' },
         },
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          to: { height: 0 },
         },
       },
-
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
   },
-
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+  plugins: [require('tailwindcss-animate')],
 };
-export default config;
