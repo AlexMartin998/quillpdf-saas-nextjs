@@ -1,9 +1,9 @@
-import { MaxWithWrapper } from './components/MaxWithWrapper';
 import {
   FeatureSection,
   HeroSection,
   LandingDecorationSection,
-} from './shared/components';
+} from '@/landing/components';
+import { MaxWithWrapper } from '@/shared/components';
 
 export default function Home() {
   return (
