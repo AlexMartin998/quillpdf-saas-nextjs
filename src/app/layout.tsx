@@ -2,6 +2,7 @@ import { Providers } from '@/shared/components/Providers';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Navbar } from '@/shared/components';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,8 @@ export default function RootLayout({
         <body
           className={`min-h-screen font-sans antialiased grainy ${inter.className}`}
         >
+          <Navbar />
+
           {children}
         </body>
       </Providers>
