@@ -2,6 +2,7 @@ import {
   FeatureSection,
   HeroSection,
   LandingDecorationSection,
+  LandingImage,
 } from '@/landing/components';
 import { MaxWithWrapper } from '@/shared/components';
 
@@ -17,6 +18,16 @@ export default function Home() {
 
       {/* feature section */}
       <FeatureSection />
+
+      {/* image */}
+      <LandingImage
+        imagePath="/file-upload-preview.jpg"
+        height={732}
+        width={1419}
+        quality={100}
+        alt="uploading preview"
+        className="pb-40"
+      />
     </>
   );
 }

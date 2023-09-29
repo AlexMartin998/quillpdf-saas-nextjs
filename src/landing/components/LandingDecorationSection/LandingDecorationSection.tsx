@@ -1,10 +1,10 @@
-import Image from 'next/image';
+import { LandingImage } from '..';
 
 export type LandingDecorationSectionProps = {};
 
 const LandingDecorationSection: React.FC<
   LandingDecorationSectionProps
-> = () => {
+> = ({}) => {
   return (
     <div>
       <div className="relative isolate">
@@ -23,23 +23,13 @@ const LandingDecorationSection: React.FC<
         </div>
 
         <div>
-          <div className="mx-auto max-w-6xl px-6 lg:px-8">
-            <div className="mt-16 flow-root sm:mt-24">
-              {/* image */}
-              <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                <Image
-                  src="/dashboard-preview.jpg"
-                  width={1364}
-                  height={866}
-                  alt="product preview"
-                  quality={100}
-                  draggable="false"
-                  priority
-                  className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
-                />
-              </div>
-            </div>
-          </div>
+          <LandingImage
+            imagePath="/dashboard-preview.jpg"
+            height={866}
+            width={1364}
+            quality={100}
+            alt="product preview"
+          />
 
           {/* decoration bg */}
           <div
