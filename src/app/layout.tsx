@@ -1,3 +1,4 @@
+import { Providers } from '@/shared/components/Providers';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -16,11 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="light">
-      <body
-        className={`min-h-screen font-sans antialiased grainy ${inter.className}`}
-      >
-        {children}
-      </body>
+      <Providers>
+        <body
+          className={`min-h-screen font-sans antialiased grainy ${inter.className}`}
+        >
+          {children}
+        </body>
+      </Providers>
     </html>
   );
 }
