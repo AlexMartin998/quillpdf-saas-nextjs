@@ -1,10 +1,12 @@
-import { Providers } from '@/shared/components/Providers';
-import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Navbar } from '@/shared/components';
-
 import 'react-loading-skeleton/dist/skeleton.css';
+
+import { Navbar } from '@/shared/components';
+import { Providers } from '@/shared/components/Providers';
+import { Toaster } from '@/shared/components/ui/toaster';
+
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,6 +29,8 @@ export default function RootLayout({
           <Navbar />
 
           {children}
+
+          <Toaster />
         </body>
       </Providers>
     </html>
