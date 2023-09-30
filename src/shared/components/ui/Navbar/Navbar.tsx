@@ -1,6 +1,8 @@
 import { LoginLink, RegisterLink } from '@kinde-oss/kinde-auth-nextjs/server';
 import Link from 'next/link';
-import { MaxWithWrapper, buttonVariants } from '../..';
+
+import { MaxWithWrapper } from '../..';
+import { buttonVariants } from '../button';
 
 export type NavbarProps = {};
 
