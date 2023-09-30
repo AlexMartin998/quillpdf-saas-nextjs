@@ -1,6 +1,6 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-
 import { TRPCError } from '@trpc/server';
+import { z } from 'zod';
 
 import { db } from '@/db';
 import { privateProcedure, publicProcedure, router } from './trpc';
@@ -32,12 +32,26 @@ export const appRouter = router({
     };
   }),
 
-  // files
+  // // files
   getUserFiles: privateProcedure.query(async ({ ctx }) => {
-    const { userId } = ctx;
+    const { userId } = ctx; // <- auth middleware
 
     return await db.file.findMany({ where: { userId } });
   }),
+
+  // .input() like body to send | mutation receive input obj
+  deleteFile: privateProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { userId } = ctx;
+
+      const file = await db.file.findFirst({ where: { id: input.id, userId } });
+      if (!file) throw new TRPCError({ code: 'NOT_FOUND' });
+
+      await db.file.delete({ where: { id: input.id } });
+
+      return { success: true };
+    }),
 });
 
 export type AppRouter = typeof appRouter;
