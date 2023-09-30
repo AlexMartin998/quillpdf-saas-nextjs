@@ -52,7 +52,7 @@ const DashboardScene: React.FC<DashboardSceneProps> = () => {
                   className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow-lg"
                 >
                   <Link
-                    href={`/dashboard/${file.id}`}
+                    href={`/dashboard/files/${file.id}`}
                     className="flex flex-col gap-2"
                   >
                     <div className="pt-6 px-6 flex w-full items-center justify-between space-x-6">
