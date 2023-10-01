@@ -8,9 +8,9 @@ import SimpleBar from 'simplebar-react';
 
 import { Button } from '@/shared/components/ui/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
+	Dialog,
+	DialogContent,
+	DialogTrigger,
 } from '@/shared/components/ui/dialog';
 import { useToast } from '@/shared/components/ui/use-toast';
 
@@ -61,7 +61,16 @@ const PdfFullscreen = ({ url }: PdfFullscreenProps) => {
               className="max-h-full"
             >
               {new Array(numPages).fill(0).map((_, i) => (
-                <Page key={i} width={width ? width : 1} pageNumber={i + 1} />
+                <Page
+                  loading={
+                    <div className="flex justify-center">
+                      <Loader2 className="my-24 h-6 w-6 animate-spin" />
+                    </div>
+                  }
+                  key={i}
+                  width={width ? width : 1}
+                  pageNumber={i + 1}
+                />
               ))}
             </Document>
           </div>
