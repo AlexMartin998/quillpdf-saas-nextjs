@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+
 import 'react-loading-skeleton/dist/skeleton.css';
+import 'simplebar-react/dist/simplebar.min.css';
 
 import { Navbar } from '@/shared/components';
 import { Providers } from '@/shared/components/Providers';

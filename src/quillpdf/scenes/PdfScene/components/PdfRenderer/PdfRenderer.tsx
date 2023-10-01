@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useResizeDetector } from 'react-resize-detector';
 import { z } from 'zod';
+import SimpleBar from 'simplebar-react';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 
@@ -136,27 +137,29 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
 
       {/* Right side */}
       <div className="flex-1 w-full max-h-screen">
-        <div ref={ref}>
-          <Document
-            file={url}
-            className="max-h-full"
-            loading={
-              <div className="flex justify-center">
-                <Loader2 className="my-24 h-6 w-6 animate-spin" />
-              </div>
-            }
-            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-            onLoadError={() => {
-              toast({
-                title: 'Error loading PDF',
-                description: 'Please try again later',
-                variant: 'destructive',
-              });
-            }}
-          >
-            <Page width={width ?? 1} pageNumber={currentPage} scale={scale} />
-          </Document>
-        </div>
+        <SimpleBar autoHide={false} className="max-h-[calc(100vh-10rem)]">
+          <div ref={ref}>
+            <Document
+              file={url}
+              className="max-h-full"
+              loading={
+                <div className="flex justify-center">
+                  <Loader2 className="my-24 h-6 w-6 animate-spin" />
+                </div>
+              }
+              onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+              onLoadError={() => {
+                toast({
+                  title: 'Error loading PDF',
+                  description: 'Please try again later',
+                  variant: 'destructive',
+                });
+              }}
+            >
+              <Page width={width ?? 1} pageNumber={currentPage} scale={scale} />
+            </Document>
+          </div>
+        </SimpleBar>
       </div>
     </div>
   );
