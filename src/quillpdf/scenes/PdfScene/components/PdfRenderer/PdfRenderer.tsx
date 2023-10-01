@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Loader2, Search } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Document, Page, pdfjs } from 'react-pdf';
@@ -11,6 +11,12 @@ import { z } from 'zod';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 
 import { Button } from '@/shared/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/shared/components/ui/dropdown-menu';
 import { Input } from '@/shared/components/ui/input';
 import { useToast } from '@/shared/components/ui/use-toast';
 import { cn } from '@/shared/lib/utils';
@@ -25,6 +31,7 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
 
   const [numPages, setNumPages] = useState<number>();
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [scale, setScale] = useState<number>(1);
 
   // form & input page validator
   const CustomPageValidator = z.object({
@@ -51,6 +58,7 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
     <div className="w-full bg-white rounded-md shadow flex flex-col items-center">
       {/* pdf options */}
       <div className="h-14 w-full border-b border-zinc-200 flex items-center justify-between px-2">
+        {/* navigatation */}
         <div className="flex items-center gap-1.5">
           <Button
             onClick={() => {
@@ -65,8 +73,6 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
-
-          {/* navigate */}
           <div className="flex items-center gap-1.5">
             <Input
               {...register('page')}
@@ -85,7 +91,6 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
               <span>{numPages ?? 'x'}</span>
             </p>
           </div>
-
           <Button
             onClick={() => {
               if (currentPage < numPages!) {
@@ -99,6 +104,33 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
+        </div>
+
+        {/* zoom pdf view */}
+        <div className="space-x-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button aria-label="zoom" variant="ghost" className="gap-1.5">
+                <Search className="h-4 w-4" />
+                {scale * 100}%
+                <ChevronDown className="h-3 w-3 opacity-50" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onSelect={() => setScale(1)}>
+                100%
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setScale(1.5)}>
+                150%
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setScale(2)}>
+                200%
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setScale(2.5)}>
+                250%
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
@@ -122,7 +154,7 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
               });
             }}
           >
-            <Page width={width ?? 1} pageNumber={currentPage} />
+            <Page width={width ?? 1} pageNumber={currentPage} scale={scale} />
           </Document>
         </div>
       </div>
