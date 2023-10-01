@@ -1,17 +1,20 @@
 import { ChatState } from './';
-	 
-type ChatAction = { type: ChatActionType.actionName };
+
+type ChatAction = { type: ChatActionType.setIsLoading; payload: boolean };
 
 export enum ChatActionType {
-	actionName = '[Chat] - ActionName',
+  setIsLoading = '[CHAT] - Set isLoading state',
 }
 
-export const chatReducer = (state: ChatState, action: ChatAction): ChatState => {
-	switch (action.type) {
-		case ChatActionType.actionName:
-			return { ...state };
+export const chatReducer = (
+  state: ChatState,
+  action: ChatAction
+): ChatState => {
+  switch (action.type) {
+    case ChatActionType.setIsLoading:
+      return { ...state, isLoading: action.payload };
 
-		default:
-			return state;
-	}
+    default:
+      return state;
+  }
 };

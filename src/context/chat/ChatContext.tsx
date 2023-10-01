@@ -3,8 +3,9 @@ import { createContext } from 'react';
 type ChatContextProps = {
   message: string;
   isLoading: boolean;
+  currentFileId: string;
 
-  addMessage: () => void;
+  addMessage: (message: string) => void;
   handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
