@@ -10,6 +10,7 @@ import { z } from 'zod';
 import SimpleBar from 'simplebar-react';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
 
 import { Button } from '@/shared/components/ui/button';
 import {
