@@ -23,7 +23,6 @@ const UploadDropzone: React.FC<UploadDropzoneProps> = () => {
   const { startUpload } = useUploadThing('pdfUploader');
   const { mutate: startPolling } = trpc.getFile.useMutation({
     onSuccess: file => {
-      toast({ title: 'File created successfuly' });
       router.push(`/dashboard/files/${file.id}`);
     },
     // retry this action until it works
@@ -49,6 +48,7 @@ const UploadDropzone: React.FC<UploadDropzoneProps> = () => {
     return interval;
   };
 
+  // TODO: validate file zise | do not close explorer after select file | validate file type in drop
   return (
     <Dropzone
       multiple={false}
