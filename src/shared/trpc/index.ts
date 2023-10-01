@@ -62,9 +62,7 @@ export const appRouter = router({
       });
       if (!file) return { status: 'PENDING' as const }; // const set as enum of prisma
 
-      return {
-        status: file.uploadStatus,
-      };
+      return { status: file.uploadStatus };
     }),
 
   // .input() like body to send | mutation receive input obj

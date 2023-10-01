@@ -8,17 +8,17 @@ import SimpleBar from 'simplebar-react';
 
 import { Button } from '@/shared/components/ui/button';
 import {
-	Dialog,
-	DialogContent,
-	DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogTrigger,
 } from '@/shared/components/ui/dialog';
 import { useToast } from '@/shared/components/ui/use-toast';
 
-interface PdfFullscreenProps {
+export interface PdfFullscreenProps {
   url: string;
 }
 
-const PdfFullscreen = ({ url }: PdfFullscreenProps) => {
+const PdfFullscreen: React.FC<PdfFullscreenProps> = ({ url }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [numPages, setNumPages] = useState<number>();
 
