@@ -28,6 +28,7 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { useToast } from '@/shared/components/ui/use-toast';
 import { cn } from '@/shared/lib/utils';
+import { PdfFullscreen } from '..';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -148,6 +149,8 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
           >
             <RotateCw className="h-4 w-4" />
           </Button>
+
+          <PdfFullscreen url={url} />
         </div>
       </div>
 
