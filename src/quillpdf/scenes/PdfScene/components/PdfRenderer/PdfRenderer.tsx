@@ -1,13 +1,19 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronDown, ChevronUp, Loader2, Search } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronUp,
+  Loader2,
+  RotateCw,
+  Search,
+} from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useResizeDetector } from 'react-resize-detector';
-import { z } from 'zod';
 import SimpleBar from 'simplebar-react';
+import { z } from 'zod';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -34,6 +40,7 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
   const [numPages, setNumPages] = useState<number>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [scale, setScale] = useState<number>(1);
+  const [rotation, setRotation] = useState<number>(0);
 
   // form & input page validator
   const CustomPageValidator = z.object({
@@ -108,7 +115,7 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
           </Button>
         </div>
 
-        {/* zoom pdf view */}
+        {/* zoom pdf view & others opts */}
         <div className="space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -133,6 +140,14 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <Button
+            onClick={() => setRotation(prev => prev + 90)}
+            aria-label="rotate 90 degrees"
+            variant="ghost"
+          >
+            <RotateCw className="h-4 w-4" />
+          </Button>
         </div>
       </div>
 
@@ -157,7 +172,12 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
                 });
               }}
             >
-              <Page width={width ?? 1} pageNumber={currentPage} scale={scale} />
+              <Page
+                width={width ?? 1}
+                pageNumber={currentPage}
+                scale={scale}
+                rotate={rotation}
+              />
             </Document>
           </div>
         </SimpleBar>
