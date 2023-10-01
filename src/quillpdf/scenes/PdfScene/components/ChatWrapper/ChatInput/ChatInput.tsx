@@ -1,6 +1,7 @@
+import { Send } from 'lucide-react';
+
 import { Button } from '@/shared/components/ui/button';
 import { Textarea } from '@/shared/components/ui/textarea';
-import { Send } from 'lucide-react';
 
 export type ChatInputProps = { isDisabled?: boolean };
 
