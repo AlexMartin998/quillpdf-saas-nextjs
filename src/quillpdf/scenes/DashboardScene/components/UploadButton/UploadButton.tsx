@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from '@/shared/components/ui/dialog';
+import { UploadDropzone } from '..';
 
 export type UploadButtonProps = {};
 
@@ -21,7 +22,7 @@ const UploadButton: React.FC<UploadButtonProps> = () => {
       </DialogTrigger>
 
       <DialogContent>
-        <>Some text Pro Plus</>
+        <UploadDropzone />
       </DialogContent>
     </Dialog>
   );
