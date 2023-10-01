@@ -161,11 +161,7 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
             <Document
               file={url}
               className="max-h-full"
-              loading={
-                <div className="flex justify-center">
-                  <Loader2 className="my-24 h-6 w-6 animate-spin" />
-                </div>
-              }
+              loading={null}
               onLoadSuccess={({ numPages }) => setNumPages(numPages)}
               onLoadError={() => {
                 toast({
@@ -178,12 +174,19 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ url }) => {
               <Page
                 width={width ?? 1}
                 pageNumber={currentPage}
+                loading={null}
                 scale={scale}
                 rotate={rotation}
               />
             </Document>
           </div>
         </SimpleBar>
+
+        {!numPages && (
+          <div className="flex justify-center">
+            <Loader2 className="my-36 h-6 w-6 animate-spin" />
+          </div>
+        )}
       </div>
     </div>
   );
