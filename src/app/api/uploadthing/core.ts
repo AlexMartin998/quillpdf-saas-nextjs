@@ -6,7 +6,7 @@ import { createUploadthing, type FileRouter } from 'uploadthing/next';
 
 import { db } from '@/db';
 import { PineconeConstants } from '@/shared/constants';
-import { pinecone } from '@/shared/lib/pinecone';
+import { getPineconeClient } from '@/shared/lib/pinecone';
 
 const f = createUploadthing();
 
@@ -47,14 +47,14 @@ export const ourFileRouter = {
         const pagesAmt = pageLevelDocs.length; // to check subscription (pro/free plan)
 
         // // vectorize and index entire document
-        const pineconeIndex = pinecone.Index(PineconeConstants.IndexName);
+        const pinecone = await getPineconeClient();
+        const pineconeIndex = pinecone.Index('quill');
         const embeddings = new OpenAIEmbeddings({
           openAIApiKey: process.env.OPENAI_API_KEY,
         }); // reuse generated vector from text (pdf content)
 
         // save vector
         await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
-          // @ts-ignore
           pineconeIndex,
           namespace: createdFile.id,
         });
@@ -68,6 +68,9 @@ export const ourFileRouter = {
           },
         });
       } catch (error) {
+        console.log('\n\n===== Error =====\n\n');
+        console.log(error);
+        console.log('\n\n===== Error - END =====\n\n');
         await db.file.update({
           data: {
             uploadStatus: 'FAILED',
