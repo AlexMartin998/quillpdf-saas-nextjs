@@ -1,2 +1,2 @@
-export { default as MaxWithWrapper } from './MaxWithWrapper/MaxWithWrapper';
+export { default as MaxWidthWrapper } from './MaxWidthWrapper/MaxWidthWrapper';
 export * from './ui';

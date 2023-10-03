@@ -1,9 +1,9 @@
-export interface MaxWithWrapperProps {
+export interface MaxWidthWrapperProps {
   className?: string;
   children: React.ReactNode;
 }
 
-const MaxWithWrapper: React.FC<MaxWithWrapperProps> = ({
+const MaxWidthWrapper: React.FC<MaxWidthWrapperProps> = ({
   children,
   className,
 }) => {
@@ -16,4 +16,4 @@ const MaxWithWrapper: React.FC<MaxWithWrapperProps> = ({
   );
 };
 
-export default MaxWithWrapper;
+export default MaxWidthWrapper;

@@ -4,14 +4,14 @@ import {
   LandingDecorationSection,
   LandingImage,
 } from '@/landing/components';
-import { MaxWithWrapper } from '@/shared/components';
+import { MaxWidthWrapper } from '@/shared/components';
 
 export default function Home() {
   return (
     <>
-      <MaxWithWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
+      <MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
         <HeroSection />
-      </MaxWithWrapper>
+      </MaxWidthWrapper>
 
       {/* value position section: only for decoration,so avoid read it with aria-hidden */}
       <LandingDecorationSection />
