@@ -38,7 +38,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ isDisabled }) => {
                 maxRows={4}
                 autoFocus
                 ref={textareaRef}
-                onKeyUp={onSendMessage}
+                onKeyDown={onSendMessage}
                 onChange={handleInputChange}
                 value={message}
                 placeholder="Enter yout question..."
