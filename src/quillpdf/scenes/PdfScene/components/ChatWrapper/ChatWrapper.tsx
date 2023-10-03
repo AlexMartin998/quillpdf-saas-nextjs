@@ -1,6 +1,7 @@
 'use client';
 
 import { trpc } from '@/app/_trpc/client';
+import { ChatProvider } from '@/context';
 import {
   ChatInput,
   ChatWrapperLoader,
@@ -38,13 +39,15 @@ const ChatWrapper: React.FC<ChatWrapperProps> = ({ fileId }) => {
   if (data?.status === 'FAILED') return <InvalidPDFProcessingMsg />;
 
   return (
-    <div className="relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2">
-      <div className="flex-1 justify-between flex flex-col mb-28">
-        <Messages fileId={'s'} />
-      </div>
+    <ChatProvider fileId={fileId}>
+      <div className="relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2">
+        <div className="flex-1 justify-between flex flex-col mb-28">
+          <Messages fileId={'s'} />
+        </div>
 
-      <ChatInput isDisabled />
-    </div>
+        <ChatInput />
+      </div>
+    </ChatProvider>
   );
 };
 

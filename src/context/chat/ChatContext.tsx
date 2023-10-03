@@ -5,7 +5,7 @@ type ChatContextProps = {
   isLoading: boolean;
   currentFileId: string;
 
-  addMessage: (message: string) => void;
+  addMessage: () => void;
   handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 

@@ -1,6 +1,6 @@
+import { useMutation } from '@tanstack/react-query';
 import { useReducer } from 'react';
 
-import { useMutation } from '@tanstack/react-query';
 import { ChatActionType, ChatContext, chatReducer } from './';
 
 export type ChatState = {
@@ -11,6 +11,7 @@ export type ChatState = {
 
 interface ChatProviderProps {
   children: React.ReactNode;
+  fileId: string;
 }
 
 const CHAT_INIT_STATE: ChatState = {
@@ -19,15 +20,17 @@ const CHAT_INIT_STATE: ChatState = {
   isLoading: false,
 };
 
-export const ChatProvider = ({ children }: ChatProviderProps) => {
+export const ChatProvider = ({ children, fileId }: ChatProviderProps) => {
   const [state, dispatch] = useReducer(chatReducer, CHAT_INIT_STATE);
 
   // fetch
   const { mutate: sendMessage } = useMutation({
     mutationFn: async ({ message }: { message: string }) => {
+      if (!message.trim()) return;
+
       const res = await fetch('/api/message', {
         method: 'POST',
-        body: JSON.stringify({ fileId: state.currentFileId, message }),
+        body: JSON.stringify({ fileId, message }),
       });
       if (!res.ok) throw new Error('Failed to send message');
 
@@ -38,13 +41,18 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
   //
 
-  const addMessage = (message: string) => {
+  const addMessage = () => {
     dispatch({ type: ChatActionType.setIsLoading, payload: true });
-    sendMessage({ message });
+    sendMessage({ message: state.message });
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    //
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const message = e.target.value;
+
+    dispatch({
+      type: ChatActionType.setMessage,
+      payload: message,
+    });
   };
 
   return (
