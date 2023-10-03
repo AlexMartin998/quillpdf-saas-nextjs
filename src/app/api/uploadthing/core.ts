@@ -48,15 +48,15 @@ export const ourFileRouter = {
 
         // // vectorize and index entire document
         const pinecone = await getPineconeClient();
-        const pineconeIndex = pinecone.Index('quill');
+        const pineconeIndex = pinecone.Index(PineconeConstants.IndexName);
         const embeddings = new OpenAIEmbeddings({
           openAIApiKey: process.env.OPENAI_API_KEY,
         }); // reuse generated vector from text (pdf content)
 
-        // save vector
+        // save vector: it'll save 1 vector per page
         await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
           pineconeIndex,
-          namespace: createdFile.id,
+          // namespace: createdFile.id, // starter plans do not work with it
         });
 
         await db.file.update({
