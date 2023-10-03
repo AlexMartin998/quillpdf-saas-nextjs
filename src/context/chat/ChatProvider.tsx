@@ -28,6 +28,9 @@ export const ChatProvider = ({ children, fileId }: ChatProviderProps) => {
     mutationFn: async ({ message }: { message: string }) => {
       if (!message.trim()) return;
 
+      console.log(message);
+      return;
+
       const res = await fetch('/api/message', {
         method: 'POST',
         body: JSON.stringify({ fileId, message }),
