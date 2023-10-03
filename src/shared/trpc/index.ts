@@ -98,6 +98,7 @@ export const appRouter = router({
       if (!file) throw new TRPCError({ code: 'NOT_FOUND' });
 
       const messages = await db.message.findMany({
+        where: { fileId },
         take: limit + 1,
         orderBy: { createdAt: 'desc' },
         cursor: cursor ? { id: cursor } : undefined, // infinite query
