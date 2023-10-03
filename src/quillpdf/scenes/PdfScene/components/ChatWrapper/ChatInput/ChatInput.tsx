@@ -15,7 +15,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ isDisabled }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const onSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !isLoading) {
       e.preventDefault();
       addMessage();
 
@@ -49,7 +49,6 @@ const ChatInput: React.FC<ChatInputProps> = ({ isDisabled }) => {
                 aria-label="send message"
                 className="absolute bottom-1.5 right-[8px]"
                 disabled={isLoading || isDisabled}
-                type="submit"
                 onClick={onClickSendMessage}
               >
                 <Send className="h-4 w-4" />
