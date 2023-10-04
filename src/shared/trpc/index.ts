@@ -162,7 +162,7 @@ export const appRouter = router({
         },
       ],
       metadata: {
-        userId: userId,
+        userId: userId, // match this payment with de user in our DB
       },
     });
 
