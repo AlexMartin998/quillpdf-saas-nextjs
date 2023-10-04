@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 import { MaxWidthWrapper, UserAccountNav } from '../..';
+import MobileNav from '../MobileNav/MobileNav';
 import { buttonVariants } from '../button';
 
 export type NavbarProps = {};
@@ -23,7 +24,8 @@ const Navbar: React.FC<NavbarProps> = () => {
             <span>quillPDF</span>
           </Link>
 
-          {/* TODO: mobile navbar */}
+          {/* mobile navbar */}
+          <MobileNav isAuth={!!user} />
 
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
