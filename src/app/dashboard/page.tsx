@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { db } from '@/db';
 import { DashboardScene } from '@/quillpdf/scenes';
+import { getUserSubscriptionPlan } from '@/shared/lib/stripe';
 
 export type DashboardPageProps = {};
 
@@ -19,7 +20,10 @@ const DashboardPage: NextPage<DashboardPageProps> = async () => {
   const dbUser = await db.user.findFirst({ where: { id: user.id } });
   if (!dbUser) redirect('/auth-callback?origin=dashboard');
 
-  return <DashboardScene />;
+  // check subscription plan
+  const subscriptionPlan = await getUserSubscriptionPlan();
+
+  return <DashboardScene subscriptionPlan={subscriptionPlan} />;
 };
 
 export default DashboardPage;

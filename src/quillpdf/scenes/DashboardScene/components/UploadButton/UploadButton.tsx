@@ -10,9 +10,11 @@ import {
 } from '@/shared/components/ui/dialog';
 import { UploadDropzone } from '..';
 
-export type UploadButtonProps = {};
+export type UploadButtonProps = {
+  isSubscribed: boolean;
+};
 
-const UploadButton: React.FC<UploadButtonProps> = () => {
+const UploadButton: React.FC<UploadButtonProps> = ({ isSubscribed }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -22,7 +24,7 @@ const UploadButton: React.FC<UploadButtonProps> = () => {
       </DialogTrigger>
 
       <DialogContent>
-        <UploadDropzone />
+        <UploadDropzone isSubscribed />
       </DialogContent>
     </Dialog>
   );
