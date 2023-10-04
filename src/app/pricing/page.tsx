@@ -1,8 +1,12 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { NextPage } from 'next';
 import { ArrowRight, Check, HelpCircle, Minus } from 'lucide-react';
+import { NextPage } from 'next';
+import Link from 'next/link';
 
+import { PLANS } from '@/config';
+import { UpgradeProPlanButton } from '@/quillpdf/scenes/PricingScene';
 import { MaxWidthWrapper } from '@/shared/components';
+import { buttonVariants } from '@/shared/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
@@ -10,11 +14,7 @@ import {
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip';
 import { pricingItems } from '@/shared/constants';
-import { PLANS } from '@/shared/lib/stripe';
 import { cn } from '@/shared/lib/utils';
-import Link from 'next/link';
-import { buttonVariants } from '@/shared/components/ui/button';
-import { UpgradeProPlanButton } from '@/quillpdf/scenes/PricingScene';
 
 export type PricingProps = {};
 

@@ -2,8 +2,11 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import { PLANS } from '@/config';
 import { db } from '@/db';
 import { MessagesConstants } from '../constants';
+import { getUserSubscriptionPlan, stripe } from '../lib/stripe';
+import { absoluteUrl } from '../lib/utils';
 import { privateProcedure, publicProcedure, router } from './trpc';
 
 // router of backend side with safe typing
@@ -116,6 +119,55 @@ export const appRouter = router({
         nextCursor,
       };
     }),
+
+  // // Payment
+  createStripeSession: privateProcedure.mutation(async ({ ctx }) => {
+    const { userId } = ctx;
+    if (!userId) throw new TRPCError({ code: 'UNAUTHORIZED' });
+    const dbUser = await db.user.findFirst({ where: { id: userId } });
+    if (!dbUser) throw new TRPCError({ code: 'UNAUTHORIZED' });
+
+    // in server side we need absoluteURLs
+    const billingUrl = absoluteUrl('/dashboard/billing');
+
+    // // check subscription
+    const isSubscribed = Boolean(
+      dbUser.stripePriceId &&
+        dbUser.stripeCurrentPeriodEnd && // 86400000 = 1 day
+        dbUser.stripeCurrentPeriodEnd.getTime() + 86_400_000 > Date.now()
+    );
+    const subscriptionPlan = await getUserSubscriptionPlan();
+
+    // already sunscribed and handle subcription
+    if (subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
+      const stripeSession = await stripe.billingPortal.sessions.create({
+        customer: dbUser.stripeCustomerId,
+        return_url: billingUrl,
+      });
+
+      return { url: stripeSession.url };
+    }
+
+    // subscribe/buy ProPlan
+    const stripeSession = await stripe.checkout.sessions.create({
+      success_url: billingUrl,
+      cancel_url: billingUrl,
+      payment_method_types: ['card', 'paypal'],
+      mode: 'subscription',
+      billing_address_collection: 'auto',
+      line_items: [
+        {
+          price: PLANS.find(plan => plan.name === 'Pro')?.price.priceIds.test,
+          quantity: 1, // 'cause is a monthly subscription
+        },
+      ],
+      metadata: {
+        userId: userId,
+      },
+    });
+
+    return { url: stripeSession.url };
+  }),
 });
 
 export type AppRouter = typeof appRouter;

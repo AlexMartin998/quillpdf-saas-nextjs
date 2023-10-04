@@ -1,4 +1,4 @@
-import { PLANS } from '@/shared/lib/stripe';
+import { PLANS } from '@/config';
 
 export const pricingItems = [
   {
