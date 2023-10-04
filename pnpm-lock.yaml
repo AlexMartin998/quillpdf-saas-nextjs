@@ -120,7 +120,7 @@ dependencies:
     specifier: ^3.2.4
     version: 3.2.4(react@18.2.0)
   stripe:
-    specifier: ^13.8.0
+    specifier: ^13.7.0
     version: 13.8.0
   tailwind-merge:
     specifier: ^1.14.0

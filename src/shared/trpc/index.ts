@@ -148,11 +148,11 @@ export const appRouter = router({
       return { url: stripeSession.url };
     }
 
-    // subscribe/buy ProPlan
+    // subscribe/buy ProPlan: paypal must be configured
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: billingUrl,
       cancel_url: billingUrl,
-      payment_method_types: ['card', 'paypal'],
+      payment_method_types: ['card'],
       mode: 'subscription',
       billing_address_collection: 'auto',
       line_items: [
